@@ -1,7 +1,7 @@
 use crate::ray::Ray;
 use crate::vec3::{Point3, Vec3};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct HitRecord {
     pub p: Point3,
     pub normal: Vec3,
