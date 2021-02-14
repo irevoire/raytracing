@@ -1,5 +1,5 @@
 #[derive(Debug, Default)]
-pub struct Vec3(f64, f64, f64);
+pub struct Vec3(pub f64, pub f64, pub f64);
 
 impl Vec3 {
     pub fn x(&self) -> f64 {
@@ -130,8 +130,8 @@ impl Div for Vec3 {
 }
 
 // Type aliases for vec3
-type Point3 = Vec3; // 3D point
-type Color = Vec3; // RGB color
+pub type Point3 = Vec3; // 3D point
+pub type Color = Vec3; // RGB color
 
 impl std::fmt::Display for Vec3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

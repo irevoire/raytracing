@@ -1,4 +1,7 @@
+mod color;
 mod vec3;
+
+pub use vec3::{Color, Vec3};
 
 fn main() {
     let image_width = 256;
@@ -13,15 +16,13 @@ fn main() {
     for j in (0..image_height).rev() {
         eprintln!("Scanlines remaining: {}", j);
         for i in 0..image_width {
-            let r = i as f64 / (image_width - 1) as f64;
-            let g = j as f64 / (image_height - 1) as f64;
-            let b = 0.25;
+            let pixel_color = Vec3(
+                i as f64 / (image_width - 1) as f64,
+                j as f64 / (image_height - 1) as f64,
+                0.25,
+            );
 
-            let ir = (255.999 * r) as usize;
-            let ig = (255.999 * g) as usize;
-            let ib = (255.999 * b) as usize;
-
-            println!("{} {} {}", ir, ig, ib);
+            color::write_color(pixel_color);
         }
     }
 
