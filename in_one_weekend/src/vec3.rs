@@ -37,6 +37,32 @@ impl Vec3 {
     pub fn unit_vector(&self) -> Self {
         self / self.length()
     }
+
+    pub fn random() -> Self {
+        use crate::rand::random_double;
+
+        Self(random_double(), random_double(), random_double())
+    }
+
+    pub fn random_range(min: f64, max: f64) -> Self {
+        use crate::rand::random_double_range;
+
+        Self(
+            random_double_range(min, max),
+            random_double_range(min, max),
+            random_double_range(min, max),
+        )
+    }
+
+    pub fn random_in_unit_sphere() -> Self {
+        loop {
+            let p = Self::random_range(-1., 1.);
+            if (p.length_squared() >= 1.) {
+                continue;
+            }
+            return p;
+        }
+    }
 }
 
 use core::ops::{Add, AddAssign, Div, DivAssign, Index, IndexMut, Mul, MulAssign, Neg, Sub};
