@@ -37,7 +37,7 @@ fn ray_color(r: &Ray, world: &impl Hittable, depth: usize) -> Color {
     let mut rec = HitRecord::default();
 
     if world.hit(r, 0.001, f64::INFINITY, &mut rec) {
-        let target = rec.p + rec.normal + Vec3::random_in_unit_sphere();
+        let target = rec.p + rec.normal + Vec3::random_unit_vector();
         return 0.5 * ray_color(&Ray::new(rec.p, target - rec.p), world, depth - 1);
     }
 
