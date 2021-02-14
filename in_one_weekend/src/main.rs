@@ -1,4 +1,5 @@
 mod color;
+mod ray;
 mod vec3;
 
 pub use vec3::{Color, Vec3};
