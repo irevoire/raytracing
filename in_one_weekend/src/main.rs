@@ -2,6 +2,7 @@ mod camera;
 mod color;
 mod hittable;
 mod hittable_list;
+mod material;
 mod rand;
 mod ray;
 mod sphere;
