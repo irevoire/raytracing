@@ -1,11 +1,20 @@
 use crate::Color;
 
-pub fn write_color(pixel_color: Color) {
-    // Write the translated [0,255] value of each color component.
+pub fn write_color(pixel_color: Color, samples_per_pixel: usize) {
+    let mut r = pixel_color.x();
+    let mut g = pixel_color.y();
+    let mut b = pixel_color.z();
+
+    // Divid the color by the number of samples.
+    let scale = 1. / samples_per_pixel as f64;
+    r *= scale;
+    g *= scale;
+    b *= scale;
+
     println!(
         "{} {} {}",
-        (255.999 * pixel_color.x()) as usize,
-        (255.999 * pixel_color.y()) as usize,
-        (255.999 * pixel_color.z()) as usize
+        (256. * r.clamp(0.0, 0.999)) as usize,
+        (256. * g.clamp(0.0, 0.999)) as usize,
+        (256. * b.clamp(0.0, 0.999)) as usize,
     );
 }
