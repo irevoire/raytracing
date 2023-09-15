@@ -46,7 +46,7 @@ fn main() {
     eprintln!("done");
 }
 
-pub fn hit_sphere(center: Point3, radius: f64, r: &Ray) -> bool {
+pub fn hit_sphere(center: Point3, radius: f64, r: &Ray) -> f64 {
     let oc = r.origin() - center;
 
     let a = r.direction().dot(r.direction());
@@ -54,15 +54,23 @@ pub fn hit_sphere(center: Point3, radius: f64, r: &Ray) -> bool {
     let c = oc.dot(oc) - radius * radius;
 
     let discriminant = b * b - 4. * a * c;
-    discriminant >= 0.
+
+    if discriminant < 0. {
+        return -1.0;
+    } else {
+        return (-b - discriminant.sqrt()) / (2.0 * a);
+    }
 }
 
 pub fn ray_color(r: &Ray) -> Color {
-    if hit_sphere(Point3::from(0, 0, -1), 0.5, r) {
-        return Color::from(1, 0, 0);
-    }
+    let t = hit_sphere(Point3::from(0, 0, -1), 0.5, r);
 
-    let unit_direction = r.direction().unit_vector();
-    let a = 0.5 * unit_direction.y() + 1.0;
-    (1.0 - a) * Color::from(1.0, 1.0, 1.0) + a * Color::from(0.5, 0.7, 1.0)
+    if t > 0.0 {
+        let n = (r.at(t) - Vec3::from(0, 0, -1)).unit_vector();
+        0.5 * Color::from(n.x() + 1., n.y() + 1., n.z() + 1.)
+    } else {
+        let unit_direction = r.direction().unit_vector();
+        let a = 0.5 * unit_direction.y() + 1.0;
+        (1.0 - a) * Color::from(1.0, 1.0, 1.0) + a * Color::from(0.5, 0.7, 1.0)
+    }
 }
