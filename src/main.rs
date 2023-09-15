@@ -1,3 +1,6 @@
+mod hittable;
+mod sphere;
+
 use raytracing::{write_color, Color, Point3, Ray, Vec3};
 
 fn main() {
