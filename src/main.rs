@@ -57,7 +57,7 @@ fn main() {
 
 pub fn ray_color(r: &Ray, world: &HittableList) -> Color {
     let mut rec = HitRecord::default();
-    if world.hit(r, 0., f64::INFINITY, &mut rec) {
+    if world.hit(r, Interval::from(0., f64::INFINITY), &mut rec) {
         return 0.5 * (rec.normal + Color::from(1, 1, 1));
     }
 

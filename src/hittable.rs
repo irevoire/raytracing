@@ -1,4 +1,4 @@
-use crate::{Point3, Ray, Vec3};
+use crate::{Interval, Point3, Ray, Vec3};
 
 #[derive(Default, Debug, Clone)]
 pub struct HitRecord {
@@ -23,5 +23,5 @@ impl HitRecord {
 }
 
 pub trait Hittable {
-    fn hit(&self, r: &Ray, ray_tmin: f64, ray_tmax: f64, rec: &mut HitRecord) -> bool;
+    fn hit(&self, r: &Ray, ray_t: Interval, rec: &mut HitRecord) -> bool;
 }
