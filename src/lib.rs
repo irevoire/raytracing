@@ -13,3 +13,4 @@ pub use color::write_color;
 pub use hittable::*;
 pub use hittable_list::HittableList;
 pub use ray::Ray;
+pub use sphere::Sphere;

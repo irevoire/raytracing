@@ -1,20 +1,24 @@
-use raytracing::Point3;
-
-use crate::hittable::Hittable;
+use crate::{hittable::Hittable, HitRecord, Point3, Ray};
 
 pub struct Sphere {
     center: Point3,
     radius: f64,
 }
 
+impl Sphere {
+    pub fn new(center: Point3, radius: impl TryInto<f64>) -> Self {
+        Self {
+            center,
+            radius: radius
+                .try_into()
+                .map_err(|_| "could not parse radius")
+                .unwrap(),
+        }
+    }
+}
+
 impl Hittable for Sphere {
-    fn hit(
-        &self,
-        r: &raytracing::Ray,
-        ray_tmin: f64,
-        ray_tmax: f64,
-        rec: &mut crate::hittable::HitRecord,
-    ) -> bool {
+    fn hit(&self, r: &Ray, ray_tmin: f64, ray_tmax: f64, rec: &mut HitRecord) -> bool {
         let oc = r.origin() - self.center;
         let a = r.direction().length_squared();
         let half_b = oc.dot(r.direction());
