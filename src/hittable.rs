@@ -1,6 +1,6 @@
-use raytracing::{Point3, Ray, Vec3};
+use crate::{Point3, Ray, Vec3};
 
-#[derive(Debug, Clone)]
+#[derive(Default, Debug, Clone)]
 pub struct HitRecord {
     pub p: Point3,
     pub normal: Vec3,

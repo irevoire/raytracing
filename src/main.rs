@@ -1,7 +1,4 @@
-mod hittable;
-mod sphere;
-
-use raytracing::{write_color, Color, Point3, Ray, Vec3};
+use raytracing::*;
 
 fn main() {
     let aspect_ratio = 16.0 / 9.0;

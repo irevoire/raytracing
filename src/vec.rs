@@ -3,6 +3,12 @@ use std::{fmt, ops};
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Vec<const N: usize>([f64; N]);
 
+impl<const N: usize> Default for Vec<N> {
+    fn default() -> Self {
+        Vec([0.0; N])
+    }
+}
+
 impl<const N: usize> Vec<N> {
     pub fn new() -> Vec<N> {
         Vec([0.0; N])
