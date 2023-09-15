@@ -36,6 +36,14 @@ impl<const N: usize> Vec<N> {
 }
 
 impl Vec<3> {
+    pub fn from(a: impl TryInto<f64>, b: impl TryInto<f64>, c: impl TryInto<f64>) -> Self {
+        Vec([
+            a.try_into().map_err(|_| "Could not parse a").unwrap(),
+            b.try_into().map_err(|_| "Could not parse b").unwrap(),
+            c.try_into().map_err(|_| "Could not parse c").unwrap(),
+        ])
+    }
+
     pub const fn x(self) -> f64 {
         self.0[0]
     }
@@ -45,6 +53,18 @@ impl Vec<3> {
     }
 
     pub const fn z(self) -> f64 {
+        self.0[2]
+    }
+
+    pub const fn r(self) -> f64 {
+        self.0[0]
+    }
+
+    pub const fn g(self) -> f64 {
+        self.0[1]
+    }
+
+    pub const fn b(self) -> f64 {
         self.0[2]
     }
 
