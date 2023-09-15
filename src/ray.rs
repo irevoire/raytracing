@@ -18,11 +18,11 @@ impl Ray {
         self.orig + self.dir * t
     }
 
-    pub fn origin(&self) -> &Point3 {
-        &self.orig
+    pub fn origin(&self) -> Point3 {
+        self.orig
     }
 
-    pub fn direction(&self) -> &Vec3 {
-        &self.dir
+    pub fn direction(&self) -> Vec3 {
+        self.dir
     }
 }
