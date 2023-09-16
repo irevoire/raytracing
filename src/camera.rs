@@ -20,7 +20,7 @@ impl Camera {
         Self {
             aspect_ratio: 16. / 9.,
             image_width: 1024,
-            samples_per_pixel: 10,
+            samples_per_pixel: 100,
             max_depth: 50,
             ..Default::default()
         }
@@ -80,7 +80,7 @@ impl Camera {
         let mut rec = HitRecord::default();
 
         if world.hit(r, Interval::from(0.001, f64::INFINITY), &mut rec) {
-            let direction = Vec3::random_on_hemisphere(rec.normal);
+            let direction = rec.normal + Vec3::random_in_unit_sphere();
             return 0.5 * self.ray_color(&Ray::new(rec.p, direction), depth - 1, world);
         }
 
