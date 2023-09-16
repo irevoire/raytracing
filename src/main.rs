@@ -7,7 +7,7 @@ fn main() {
     let mut world = HittableList::new();
 
     let material_ground = Arc::new(material::Lambertian::new(Color::from(0.8, 0.8, 0.0)));
-    let material_center = Arc::new(material::Dielectric::new(1.5));
+    let material_center = Arc::new(material::Lambertian::new(Color::from(0.1, 0.2, 0.5)));
     let material_left = Arc::new(material::Dielectric::new(1.5));
     let material_right = Arc::new(material::Metal::new(Color::from(0.8, 0.6, 0.2), 1.));
 
