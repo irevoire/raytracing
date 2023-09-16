@@ -20,7 +20,7 @@ impl Camera {
         Self {
             aspect_ratio: 16. / 9.,
             image_width: 1024,
-            samples_per_pixel: 100,
+            samples_per_pixel: 10,
             max_depth: 50,
             ..Default::default()
         }
@@ -86,6 +86,9 @@ impl Camera {
                 .material
                 .scatter(r, &rec, &mut attenuation, &mut scattered)
             {
+                if attenuation == Color::new() {
+                    eprintln!("here at iteration {}", self.max_depth - depth);
+                }
                 return attenuation * self.ray_color(&scattered, depth - 1, world);
             }
             return Color::from(0, 0, 0);

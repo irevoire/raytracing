@@ -6,16 +6,18 @@ fn main() {
     // World
     let mut world = HittableList::new();
 
-    world.add(Arc::new(Sphere::new(
-        Point3::from(0, 0, -1),
-        0.5,
-        Arc::new(material::Lambertian::new(Color::new())),
-    )));
-    world.add(Arc::new(Sphere::new(
-        Point3::from(0, -100.5, -1),
-        100,
-        Arc::new(material::Lambertian::new(Color::new())),
-    )));
+    let material_ground = Arc::new(material::Lambertian::new(Color::from(0.8, 0.8, 0.0)));
+    let material_center = Arc::new(material::Lambertian::new(Color::from(0.7, 0.3, 0.3)));
+    let material_left = Arc::new(material::Metal::new(Color::from(0.8, 0.8, 0.8)));
+    let material_right = Arc::new(material::Metal::new(Color::from(0.8, 0.6, 0.2)));
+
+    #[rustfmt::skip]
+    {
+        world.add(Arc::new(Sphere::new(Point3::from( 0.0, -100.5, -1.0), 100.0, material_ground)));
+        world.add(Arc::new(Sphere::new(Point3::from( 0.0,    0.0, -1.0),   0.5, material_center)));
+        world.add(Arc::new(Sphere::new(Point3::from(-1.0,    0.0, -1.0),   0.5, material_left)));
+        world.add(Arc::new(Sphere::new(Point3::from( 1.0,    0.0, -1.0),   0.5, material_right)));
+    };
 
     let mut cam = Camera::new();
 

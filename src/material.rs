@@ -29,6 +29,7 @@ impl Material for Lambertian {
         scattered: &mut Ray,
     ) -> bool {
         let mut scatter_direction = rec.normal + Vec3::random_unit_vector();
+        // Catch degenerate scatter direction
         if scatter_direction.near_zero() {
             scatter_direction = rec.normal;
         }
