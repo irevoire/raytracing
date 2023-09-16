@@ -1,18 +1,22 @@
-use crate::{hittable::Hittable, HitRecord, Interval, Point3, Ray};
+use std::sync::Arc;
+
+use crate::{hittable::Hittable, HitRecord, Interval, Material, Point3, Ray};
 
 pub struct Sphere {
     center: Point3,
     radius: f64,
+    material: Arc<dyn Material>,
 }
 
 impl Sphere {
-    pub fn new(center: Point3, radius: impl TryInto<f64>) -> Self {
+    pub fn new(center: Point3, radius: impl TryInto<f64>, material: Arc<dyn Material>) -> Self {
         Self {
             center,
             radius: radius
                 .try_into()
                 .map_err(|_| "could not parse radius")
                 .unwrap(),
+            material,
         }
     }
 }
