@@ -19,7 +19,7 @@ impl Camera {
     pub fn new() -> Self {
         Self {
             aspect_ratio: 16. / 9.,
-            image_width: 1024,
+            image_width: 800,
             samples_per_pixel: 10,
             max_depth: 50,
             ..Default::default()

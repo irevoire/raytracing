@@ -113,18 +113,14 @@ impl Material for Dielectric {
         let cannot_refract = refraction_ratio * sin_theta > 1.0;
         let direction;
 
-        let mut rng = rand::thread_rng();
-        if cannot_refract || Self::reflectance(cos_theta, refraction_ratio) > rng.gen::<f64>() {
+        if cannot_refract || Self::reflectance(cos_theta, refraction_ratio) > crate::random_float()
+        {
             direction = unit_direction.reflect_with(rec.normal);
         } else {
             direction = unit_direction.refract_with(rec.normal, refraction_ratio);
         }
-
         *scattered = Ray::new(rec.p, direction);
 
-        let refracted = unit_direction.refract_with(rec.normal, refraction_ratio);
-
-        *scattered = Ray::new(rec.p, refracted);
         return true;
     }
 }
