@@ -29,8 +29,8 @@ impl Interval {
         Interval {
             min: min.try_into().map_err(|_| "could not parse min").unwrap(),
             max: max.try_into().map_err(|_| "could not parse max").unwrap(),
-}
-}
+        }
+    }
 
     pub fn contains(self, x: f64) -> bool {
         self.min <= x && x <= self.max
