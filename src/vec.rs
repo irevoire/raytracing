@@ -147,6 +147,16 @@ impl Vec<3> {
             self.x() * other.y() - self.y() * other.x(),
         ])
     }
+
+    pub fn random_in_unit_disk() -> Self {
+        let mut rng = rand::thread_rng();
+        loop {
+            let p = Self::from(rng.gen_range((-1.)..=1.0), rng.gen_range((-1.)..=1.0), 0);
+            if p.length_squared() < 1. {
+                return p;
+            }
+        }
+    }
 }
 
 impl<const N: usize> ops::Neg for Vec<N> {

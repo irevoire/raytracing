@@ -23,7 +23,9 @@ fn main() {
 
     cam.vfov = 20.;
     cam.samples_per_pixel = 100;
-    cam.image_width = 4096;
+    cam.image_width = 2048;
+    cam.defocus_angle = 10.;
+    cam.focus_dist = 3.4;
 
     cam.lookfrom = Point3::from(-2, 2, 1);
     cam.lookat = Point3::from(0, 0, -1);
