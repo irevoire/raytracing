@@ -1,14 +1,26 @@
 use std::sync::Arc;
 
-use crate::{Interval, Material, Point3, Ray, Vec3};
+use crate::{material, Color, Interval, Material, Point3, Ray, Vec3};
 
-#[derive(Default, Debug, Clone)]
+#[derive(Clone)]
 pub struct HitRecord {
     pub p: Point3,
     pub normal: Vec3,
     pub material: Arc<dyn Material>,
     pub t: f64,
     pub front_face: bool,
+}
+
+impl Default for HitRecord {
+    fn default() -> Self {
+        Self {
+            p: Default::default(),
+            normal: Default::default(),
+            material: Arc::new(material::Lambertian::new(Color::default())),
+            t: Default::default(),
+            front_face: Default::default(),
+        }
+    }
 }
 
 impl HitRecord {
