@@ -13,13 +13,21 @@ fn main() {
 
     #[rustfmt::skip]
     {
-        world.add(Arc::new(Sphere::new(Point3::from( 0.0, -100.5, -1.0), 100.0, material_ground)));
+        world.add(Arc::new(Sphere::new(Point3::from( 0.0, -1000.5, -1.0), 1000.0, material_ground)));
         world.add(Arc::new(Sphere::new(Point3::from( 0.0,    0.0, -1.0),   0.5, material_center)));
         world.add(Arc::new(Sphere::new(Point3::from(-1.0,    0.0, -1.0),   -0.4, material_left)));
         world.add(Arc::new(Sphere::new(Point3::from( 1.0,    0.0, -1.0),   0.5, material_right)));
     };
 
     let mut cam = Camera::new();
+
+    cam.vfov = 20.;
+    cam.samples_per_pixel = 100;
+    cam.image_width = 4096;
+
+    cam.lookfrom = Point3::from(-2, 2, 1);
+    cam.lookat = Point3::from(0, 0, -1);
+    cam.vup = Vec3::from(0, 1, 0);
 
     cam.render(&world);
 }
