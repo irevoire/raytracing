@@ -1,17 +1,66 @@
 use std::{fmt, ops};
 
+use rand::Rng;
+
+use crate::Interval;
+
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Vec<const N: usize>([f64; N]);
 
 impl<const N: usize> Default for Vec<N> {
     fn default() -> Self {
-        Vec([0.0; N])
+        Vec::new()
     }
 }
 
 impl<const N: usize> Vec<N> {
     pub fn new() -> Vec<N> {
         Vec([0.0; N])
+    }
+
+    pub fn random() -> Self {
+        let mut rng = rand::thread_rng();
+        let mut vec = [0.0; N];
+
+        for el in &mut vec {
+            *el = rng.gen();
+        }
+
+        Vec(vec)
+    }
+
+    pub fn random_within_interval(interval: Interval) -> Self {
+        let mut rng = rand::thread_rng();
+        let mut vec = [0.0; N];
+
+        for el in &mut vec {
+            *el = rng.gen_range(interval.min..=interval.max);
+        }
+
+        Vec(vec)
+    }
+
+    pub fn random_in_unit_sphere() -> Self {
+        loop {
+            let p = Self::random_within_interval(Interval::from(-1, 1));
+            if p.length_squared() < 1. {
+                return p;
+            }
+        }
+    }
+
+    pub fn random_unit_vector() -> Self {
+        Self::random_in_unit_sphere().unit_vector()
+    }
+
+    pub fn random_on_hemisphere(normal: Self) -> Self {
+        let on_unit_sphere = Self::random_unit_vector();
+        // In the same hemisphere as the normal
+        if on_unit_sphere.dot(normal) > 0.0 {
+            on_unit_sphere
+        } else {
+            -on_unit_sphere
+        }
     }
 
     pub fn dot(self, other: Self) -> f64 {

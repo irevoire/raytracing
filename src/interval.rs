@@ -25,9 +25,12 @@ impl Interval {
         }
     }
 
-    pub fn from(min: f64, max: f64) -> Interval {
-        Interval { min, max }
-    }
+    pub fn from(min: impl TryInto<f64>, max: impl TryInto<f64>) -> Interval {
+        Interval {
+            min: min.try_into().map_err(|_| "could not parse min").unwrap(),
+            max: max.try_into().map_err(|_| "could not parse max").unwrap(),
+}
+}
 
     pub fn contains(self, x: f64) -> bool {
         self.min <= x && x <= self.max
