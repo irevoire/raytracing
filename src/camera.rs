@@ -80,8 +80,15 @@ impl Camera {
         let mut rec = HitRecord::default();
 
         if world.hit(r, Interval::from(0.001, f64::INFINITY), &mut rec) {
-            let direction = rec.normal + Vec3::random_in_unit_sphere();
-            return 0.5 * self.ray_color(&Ray::new(rec.p, direction), depth - 1, world);
+            let mut scattered = Ray::default();
+            let mut attenuation = Color::new();
+            if rec
+                .material
+                .scatter(r, &rec, &mut attenuation, &mut scattered)
+            {
+                return attenuation * self.ray_color(&scattered, depth - 1, world);
+            }
+            return Color::from(0, 0, 0);
         }
 
         let unit_direction = r.direction().unit_vector();

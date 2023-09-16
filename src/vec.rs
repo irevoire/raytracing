@@ -89,10 +89,14 @@ impl<const N: usize> Vec<N> {
         ret
     }
 
-    pub fn near_zero(&self) -> bool {
+    pub fn near_zero(self) -> bool {
         // Return true if the vector is close to zero in all dimensions.
         let s = 1e-8;
         self.0.iter().all(|value| value.abs() < s)
+    }
+
+    pub fn reflect_with(self, normal: Self) -> Self {
+        self - 2. * self.dot(normal) * normal
     }
 }
 
