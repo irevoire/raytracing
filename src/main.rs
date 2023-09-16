@@ -8,8 +8,8 @@ fn main() {
 
     let material_ground = Arc::new(material::Lambertian::new(Color::from(0.8, 0.8, 0.0)));
     let material_center = Arc::new(material::Lambertian::new(Color::from(0.7, 0.3, 0.3)));
-    let material_left = Arc::new(material::Metal::new(Color::from(0.8, 0.8, 0.8)));
-    let material_right = Arc::new(material::Metal::new(Color::from(0.8, 0.6, 0.2)));
+    let material_left = Arc::new(material::Metal::new(Color::from(0.8, 0.8, 0.8), 0.3));
+    let material_right = Arc::new(material::Metal::new(Color::from(0.8, 0.6, 0.2), 1.));
 
     #[rustfmt::skip]
     {
