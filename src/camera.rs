@@ -8,6 +8,7 @@ pub struct Camera {
     pub image_width: usize,       // Rendered image width in pixel count
     pub samples_per_pixel: usize, // Count of random samples for each pixel
     pub max_depth: usize,         // Maximum number of ray bounces into scene
+    pub vfov: f64,                // Vertical view angle (field of view)
     image_height: usize,          // Rendered image height
     center: Point3,               // Camera center
     pixel00_loc: Point3,          // Location of pixel 0, 0
@@ -22,6 +23,7 @@ impl Camera {
             image_width: 800,
             samples_per_pixel: 10,
             max_depth: 50,
+            vfov: 90.,
             ..Default::default()
         }
     }
@@ -54,7 +56,9 @@ impl Camera {
 
         // Determine viewport dimensions.
         let focal_length = 1.0;
-        let viewport_height = 2.0;
+        let theta = self.vfov.to_radians();
+        let h = (theta / 2.).tan();
+        let viewport_height = 2. * h * focal_length;
         let viewport_width = viewport_height * (self.image_width as f64 / self.image_height as f64);
 
         // Calculate the vectors across the horizontal and down the vertical viewport edges.
